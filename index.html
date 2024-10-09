@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<title>Recycle</title>
+	<link rel="stylesheet" href="https://samuelpetersson.github.io/style.css">
+
+
+	<style>
+		.demo {
+			width: 100%;
+			aspect-ratio: 16 / 9;
+			position: relative;
+			background: #eee;
+			overflow: hidden;
+		}
+
+		#demo1 {
+			display: flex;
+			flex-direction: column;
+		}
+
+		#demo2 {
+			overflow-y: scroll;
+		}
+	</style>
+
+	<script src="index.js"></script>
+</head>
+
+<body>
+
+	<main>
+
+		<header>
+			<h1>Recycle</h1>
+			<p>
+				<a href="https://github.com/samuelpetersson/recycle">Source</a>
+			</p>
+		</header>
+
+
+		<article>
+			<h2>Counter</h2>
+			<div class="demo" id="demo1">
+			</div>
+
+			<script>
+				(function () {
+					const { open, node, text, done } = recycle
+
+					let counter = 0
+
+					const render = () => {
+
+						open(document.getElementById("demo1"))
+
+						const button = node("button", {
+
+							style: {
+								margin: "auto",
+								...(counter >= 0 && { color: "green" }),
+								...(counter >= 4 && { color: "orange" }),
+								...(counter >= 8 && { color: "red" }),
+							},
+
+							onclick: () => {
+								counter++
+								if (counter > 12) { counter = 0 }
+								render()
+							}
+						}, `${counter}`)
+
+
+
+					}
+
+					render()
+
+				})()
+			</script>
+
+		</article>
+
+
+
+		<article>
+			<h2>List</h2>
+			<div class="demo" id="demo2">
+			</div>
+
+			<script>
+					(function () {
+
+						const { open, node, text, done } = recycle
+
+						const items = [...Array(1000)].map((_, i) => i)
+
+						const render = () => {
+
+
+							console.time("Demo 2")
+							open(document.getElementById("demo2"))
+
+							node("ul", null, true)
+
+							items.forEach((item, i) => {
+
+								node("li", {
+									onclick: () => {
+										items.splice(i, 1)
+										render()
+									}
+								}, `Item ${item}`)
+							})
+
+							done()
+
+							console.timeEnd("Demo 2")
+
+						}
+
+						render()
+
+					})()
+			</script>
+
+		</article>
+
+
+	</main>
+
+</body>
+
+</html>

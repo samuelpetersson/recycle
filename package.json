@@ -1,0 +1,11 @@
+{
+  "name": "recycle",
+  "version": "0.0.1",
+  "description": "Recycle DOM nodes",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx serve"
+  },
+  "author": "Samuel Petersson <samuelpetersson@pm.me>",
+  "license": "MIT"
+}
